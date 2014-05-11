@@ -31,7 +31,7 @@ class bind (
     packagenamesuffix => $packagenamesuffix,
   }
   class { 'bind::service':
-    servicename    => $servicename,
+    servicename    => $::bind::params::servicename,
     service_reload => $service_reload,
   }
 
@@ -41,8 +41,8 @@ class bind (
     false => '/var/log/named',
   }
   file { $bindlogdir:
-    require => Class['bind::package'],
     ensure  => directory,
+    require => Class['bind::package'],
     owner   => $::bind::params::binduser,
     group   => $::bind::params::bindgroup,
     mode    => '0770',
